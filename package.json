@@ -1,7 +1,7 @@
 {
-  "name": "portfolio",
+  "name": "deb",
   "version": "0.0.1",
-  "description": "My portfolio and playing ground.",
+  "description": "A double entry bookkeeping implementation in typescript.",
   "main": "index.js",
   "scripts": {
     "build": "npm run build-ts && npm run lint",
@@ -14,25 +14,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Caserage/portfolio.git"
+    "url": "git+https://github.com/Caserage/deb.git"
   },
   "author": "Benedikt Schniepp",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Caserage/portfolio/issues"
+    "url": "https://github.com/Caserage/deb/issues"
   },
-  "homepage": "https://github.com/Caserage/portfolio#readme",
+  "homepage": "https://github.com/Caserage/deb#readme",
   "devDependencies": {
     "@types/chai": "^4.2.3",
     "@types/express": "^4.17.1",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.7.11",
+    "@types/node": "^13.1.2",
     "@typescript-eslint/eslint-plugin": "^2.3.2",
     "@typescript-eslint/parser": "^2.3.2",
     "chai": "^4.2.0",
     "eslint": "^6.5.1",
     "mocha": "^6.2.1",
-    "nyc": "^14.1.1",
+    "nyc": "^15.0.0",
     "source-map-support": "^0.5.13",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.3"
