@@ -75,6 +75,12 @@ export class Transaction {
      * Upon creation the variable is set to the current date.
      */
     public readonly createdDate: number;
+
+    /**
+     * Stores a description of the transaction as a string.
+     * Upon creation the variable is set to an empty string if no
+     * description is provided.
+     */
     public description: string;
 
     constructor(transaction: ITransaction) {
@@ -92,10 +98,20 @@ export class Transaction {
         this.history = new Array<ITransactionModification>();
     }
 
+    /**
+     * Takes a modification object and pushes it to the transaction modification history.
+     * @param modification The modification object, which is pushed to the transaction
+     * history.
+     */
     private transactionUpdate(modification: ITransactionModification): void {
         this.history.push(modification);
     }
 
+    /**
+     * Updates the debit account of the transaction with the new account.
+     * The currently active debit account gets pushed to the transaction modification history.
+     * @param newAccount The new account object.
+     */
     public updateDebitAccount(newAccount: Account): void {
         const currentDate = Date.now();
         const oldProperty = this.accountDebited;
@@ -113,6 +129,11 @@ export class Transaction {
         this.transactionUpdate(modification);
     }
 
+    /**
+     * Updates the credit account of the transaction with the new account.
+     * The currently active credit account gets pushed to the transaction modification history.
+     * @param newAccount The new account object.
+     */
     public updateCreditAccount(newAccount: Account): void {
         const currentDate = Date.now();
         const oldProperty = this.accountCredited;
@@ -130,6 +151,11 @@ export class Transaction {
         this.transactionUpdate(modification);
     }
 
+    /**
+     * Updates the date of the transaction.
+     * The currently active date gets pushed to the transaction modification history.
+     * @param newDate The new date for the transaction.
+     */
     public updateTransactionDate(newDate: number): void {
         const currentDate = Date.now();
         const oldProperty = this.transactionDate;
@@ -147,6 +173,11 @@ export class Transaction {
         this.transactionUpdate(modification);
     }
 
+    /**
+     * Updates the amount of the transaction.
+     * The old amount gets pushed to the transaction modification history.
+     * @param newAmount The new amount for the transaction.
+     */
     public updateAmount(newAmount: Account): void {
         const currentDate = Date.now();
         const oldProperty = this.amount;
