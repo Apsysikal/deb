@@ -1,34 +1,39 @@
-import { Account, ITransaction } from "./account";
+import { Account } from "./account";
+import { Transaction } from "./transaction";
 
 export class Book {
 
     private bookName: string;
     private balance: number;
     private accounts: Account[];
+    private transactions: Transaction[];
 
     constructor(bookName: string, balance = 0) {
         this.bookName = bookName;
         this.balance = balance;
         this.accounts = new Array<Account>();
+        this.transactions = new Array<Transaction>();
     }
 
-    addAccount(accountName: string, balance = 0) {
-        const account = new Account(accountName, balance);
+    addAccount(account: Account): void {
         this.accounts.push(account);
     }
 
-    addTransaction(accountDebitedName: string, accountCreditedName: string, amount: number) {
+    addTransaction(accountDebitedName: string, accountCreditedName: string, amount: number): void {
         const accountDebited = this.getAccountByName(accountDebitedName);
         const accountCredited = this.getAccountByName(accountCreditedName);
 
-        const transaction: ITransaction = {
-            uid: 1,
-            date: Date.now(),
+        if (!accountDebited) { throw new Error("The account to be debited does not exist"); }
+        if (!accountCredited) { throw new Error("The account to be credited does not exist"); }
+
+        const transaction = new Transaction({
+            transactionDate: Date.now(),
             accountDebited: accountDebited,
             accountCredited: accountCredited,
-            amount: amount,
-            description: null
-        }
+            amount: amount
+        });
+
+        this.transactions.push(transaction);
 
         accountDebited.debit(transaction);
         accountCredited.credit(transaction);
@@ -39,7 +44,7 @@ export class Book {
         this.validateBook();
     }
 
-    private getAccountByName(accountName: string): Account {
+    public getAccountByName(accountName: string): Account | undefined {
         const filteredAccounts = this.accounts.filter((account) => {
             if (account.getName() === accountName) {
                 return true;
@@ -48,19 +53,22 @@ export class Book {
             }
         });
 
-
         if (filteredAccounts.length > 1) {
             throw new Error("Multiple accounts with the same name found");
         }
 
         if (filteredAccounts.length < 1) {
-            throw new Error(`No account found with name: ${accountName}`);
+            return undefined;
         }
 
         return filteredAccounts[0];
     }
 
-    validateBook() {
+    public getLatestTransaction(): Transaction | undefined {
+        return this.transactions.pop();
+    }
+
+    validateBook(): void {
         let currentBalance = 0.0;
 
         this.accounts.forEach(account => {
@@ -72,11 +80,11 @@ export class Book {
         }
     }
 
-    getBalance() {
+    getBalance(): number {
         return this.balance;
     }
 
-    getName() {
+    getName(): string {
         return this.bookName;
     }
 }

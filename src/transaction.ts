@@ -178,7 +178,7 @@ export class Transaction {
      * The old amount gets pushed to the transaction modification history.
      * @param newAmount The new amount for the transaction.
      */
-    public updateAmount(newAmount: Account): void {
+    public updateAmount(newAmount: number): void {
         const currentDate = Date.now();
         const oldProperty = this.amount;
         const updateMessage = "Amount Update";
@@ -190,8 +190,24 @@ export class Transaction {
         }
 
         this.lastModifiedDate = currentDate;
-        this.accountDebited = newAmount;
+        this.amount = newAmount;
 
         this.transactionUpdate(modification);
+    }
+
+    public getDebitAccount(): Account {
+        return this.accountDebited;
+    }
+
+    public getCreditAccount(): Account {
+        return this.accountCredited;
+    }
+
+    public getTransactionDate(): number {
+        return this.transactionDate;
+    }
+
+    public getAmount(): number {
+        return this.amount;
     }
 }
