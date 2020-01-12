@@ -12,7 +12,7 @@ export class Book {
     /**
      * Stores the current balance of the book.
      * The balance is normally zero. If the amount is not zero there is
-     * probably an error in the book.
+     * likely an error in the book.
      * Upon creation of the book the balance is initially set to zero.
      */
     private balance: number;
