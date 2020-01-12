@@ -195,18 +195,34 @@ export class Transaction {
         this.transactionUpdate(modification);
     }
 
+    /**
+     * Returns the account debited by the transaction. The account
+     * is returned as an Account object.
+     */
     public getDebitAccount(): Account {
         return this.accountDebited;
     }
 
+    /**
+     * Returns the account credited by the transaction. The account
+     * is returned as an Account object.
+     */
     public getCreditAccount(): Account {
         return this.accountCredited;
     }
 
+    /**
+     * Returns the transaction date of the transaction. The date
+     * is returned as a number.
+     */
     public getTransactionDate(): number {
         return this.transactionDate;
     }
 
+    /**
+     * Returns the amount of the transaction. The amount is
+     * returned as a number.
+     */
     public getAmount(): number {
         return this.amount;
     }
