@@ -9,7 +9,7 @@ export interface ITransaction {
 }
 
 interface ITransactionModification {
-    modificationDate: number;
+    modificationDate?: number;
     modificationMessage: string;
     oldProperty: Account | number;
 }
@@ -113,17 +113,13 @@ export class Transaction {
      * @param newAccount The new account object.
      */
     public updateDebitAccount(newAccount: Account): void {
-        const currentDate = Date.now();
-        const oldProperty = this.accountDebited;
-        const updateMessage = "Debit Account Update";
-
         const modification = {
-            modificationDate: currentDate,
-            modificationMessage: updateMessage,
-            oldProperty: oldProperty
+            modificationDate: Date.now(),
+            modificationMessage: "Debit Account Update",
+            oldProperty: this.accountDebited
         }
 
-        this.lastModifiedDate = currentDate;
+        this.lastModifiedDate = modification.modificationDate;
         this.accountDebited = newAccount;
 
         this.transactionUpdate(modification);
@@ -135,17 +131,13 @@ export class Transaction {
      * @param newAccount The new account object.
      */
     public updateCreditAccount(newAccount: Account): void {
-        const currentDate = Date.now();
-        const oldProperty = this.accountCredited;
-        const updateMessage = "Credit Account Update";
-
         const modification = {
-            modificationDate: currentDate,
-            modificationMessage: updateMessage,
-            oldProperty: oldProperty
+            modificationDate: Date.now(),
+            modificationMessage: "Credit Account Update",
+            oldProperty: this.accountCredited
         }
 
-        this.lastModifiedDate = currentDate;
+        this.lastModifiedDate = modification.modificationDate;
         this.accountCredited = newAccount;
 
         this.transactionUpdate(modification);
@@ -157,17 +149,13 @@ export class Transaction {
      * @param newDate The new date for the transaction.
      */
     public updateTransactionDate(newDate: number): void {
-        const currentDate = Date.now();
-        const oldProperty = this.transactionDate;
-        const updateMessage = "Transaction Date Update";
-
         const modification = {
-            modificationDate: currentDate,
-            modificationMessage: updateMessage,
-            oldProperty: oldProperty
+            modificationDate: Date.now(),
+            modificationMessage: "Transaction Date Update",
+            oldProperty: this.transactionDate
         }
 
-        this.lastModifiedDate = currentDate;
+        this.lastModifiedDate = modification.modificationDate;
         this.transactionDate = newDate;
 
         this.transactionUpdate(modification);
@@ -179,17 +167,13 @@ export class Transaction {
      * @param newAmount The new amount for the transaction.
      */
     public updateAmount(newAmount: number): void {
-        const currentDate = Date.now();
-        const oldProperty = this.amount;
-        const updateMessage = "Amount Update";
-
         const modification = {
-            modificationDate: currentDate,
-            modificationMessage: updateMessage,
-            oldProperty: oldProperty
+            modificationDate: Date.now(),
+            modificationMessage: "Amount",
+            oldProperty: this.accountDebited
         }
 
-        this.lastModifiedDate = currentDate;
+        this.lastModifiedDate = modification.modificationDate;
         this.amount = newAmount;
 
         this.transactionUpdate(modification);
