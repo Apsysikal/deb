@@ -21,6 +21,10 @@
             {
                 "prefixWithI": "always"
             }
+        ],
+        "semi": [
+            2,
+            "always"
         ]
     }
 }

@@ -108,7 +108,7 @@ export class Transaction {
             modificationDate: date,
             modificationMessage: message,
             oldProperty: oldProperty
-        }
+        };
 
         this.history.push(modification);
     }

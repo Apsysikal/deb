@@ -13,14 +13,14 @@ export async function connect(dbName: string): Promise<Mongoose> {
 
     const db = mongoose;
 
-    db.connection.on("connecting", () => { eventLogger("info", "Connecting to database") });
-    db.connection.on("connected", () => { eventLogger("info", "Connected to database") });
-    db.connection.on("disconnecting", () => { eventLogger("info", "Disconnecting from database") });
-    db.connection.on("disconnected", () => { eventLogger("info", "Disconnected to database") });
-    db.connection.on("close", () => { eventLogger("info", "Closed connection to database") });
-    db.connection.on("reconnected", () => { eventLogger("info", "Reconnected to database") });
-    db.connection.on("error", (error: Error) => { eventLogger("error", "Error in database: " + error.message) });
-    db.connection.on("reconnectFailed", () => { eventLogger("error", "Reconnect failed. No more retries will be done.") });
+    db.connection.on("connecting", () => { eventLogger("info", "Connecting to database"); });
+    db.connection.on("connected", () => { eventLogger("info", "Connected to database"); });
+    db.connection.on("disconnecting", () => { eventLogger("info", "Disconnecting from database"); });
+    db.connection.on("disconnected", () => { eventLogger("info", "Disconnected to database"); });
+    db.connection.on("close", () => { eventLogger("info", "Closed connection to database"); });
+    db.connection.on("reconnected", () => { eventLogger("info", "Reconnected to database"); });
+    db.connection.on("error", (error: Error) => { eventLogger("error", "Error in database: " + error.message); });
+    db.connection.on("reconnectFailed", () => { eventLogger("error", "Reconnect failed. No more retries will be done."); });
 
     try {
         await db.connect(connectionString, {

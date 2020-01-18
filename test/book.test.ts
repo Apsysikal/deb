@@ -48,7 +48,7 @@ describe("Book", () => {
 
             book.addAccount(creditAccount);
 
-            expect(() => { book.addTransaction("DebitAccount", "CreditAccount", 100.00) }).to.throw("The account to be debited does not exist");
+            expect(() => { book.addTransaction("DebitAccount", "CreditAccount", 100.00); }).to.throw("The account to be debited does not exist");
         });
 
         it("Should throw an error when the account to be credited does not exist", () => {
@@ -58,7 +58,7 @@ describe("Book", () => {
 
             book.addAccount(creditAccount);
 
-            expect(() => { book.addTransaction("DebitAccount", "CreditAccount", 100.00) }).to.throw("The account to be credited does not exist");
+            expect(() => { book.addTransaction("DebitAccount", "CreditAccount", 100.00); }).to.throw("The account to be credited does not exist");
         });
     });
 
@@ -79,7 +79,7 @@ describe("Book", () => {
             book.addAccount(account);
             book.addAccount(account);
 
-            expect(() => { book.getAccountByName("TestAccount") }).to.throw("Multiple accounts with the same name found");
+            expect(() => { book.getAccountByName("TestAccount"); }).to.throw("Multiple accounts with the same name found");
         });
 
         it("Should return undefined when no account exists with this name", () => {

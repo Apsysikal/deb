@@ -96,7 +96,7 @@ describe("Account", () => {
             accountCredited.credit(transaction);
 
             expect(accountDebited.getBalance()).to.deep.equal(transaction.getAmount());
-            expect(accountCredited.getBalance()).to.deep.equal(-transaction.getAmount())
+            expect(accountCredited.getBalance()).to.deep.equal(-transaction.getAmount());
         });
     });
 });
