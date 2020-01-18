@@ -1,33 +1,32 @@
 import { Router, Request, Response } from "express";
 
-import { bookController } from "../controllers/book";
+import { createBook, getAllBooks, getBookById, updateBook, deleteBook } from "../controllers/book";
 
 export const router = Router();
 
 // Create
 router.post("/", async (req: Request, res: Response) => {
-    // TODO: Add validation
-    res.end("Returns the created user");
+    createBook(req, res);
 });
 
 // Returns all books
 router.get("/", async (req: Request, res: Response) => {
-    res.end("Returns all books");
+    getAllBooks(req, res);
 });
 
 // Returns book by id
 router.get("/:id", async (req: Request, res: Response) => {
-    res.end("Returns book by id");
+    getBookById(req, res);
 });
 
 // Update  book
 router.put("/:id", async (req: Request, res: Response) => {
-    res.end("Returns updated book");
+    updateBook(req, res);
 });
 
 // Delete book
 router.delete("/:id", async (req: Request, res: Response) => {
-    res.end("Deleted book");
+    deleteBook(req, res);
 });
 
 export {

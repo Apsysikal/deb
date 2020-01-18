@@ -9,10 +9,10 @@ export interface IAccount extends Document {
 };
 
 const schema = new Schema({
-    _id: { type: Types.ObjectId, unique: true },
+    _id: Schema.Types.ObjectId,
     name: String,
     balance: Number,
-    transactions: [{ type: Types.ObjectId, ref: "Transaction" }]
+    transactions: [{ type: Schema.Types.ObjectId, ref: "Transaction" }]
 });
 
 export const Account = mongoose.model<IAccount>("Account", schema);

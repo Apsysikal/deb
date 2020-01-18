@@ -12,12 +12,12 @@ export interface ITransaction extends Document {
 };
 
 const schema = new Schema({
-    _id: { type: Types.ObjectId, unique: true },
+    _id: Schema.Types.ObjectId,
     created: Number,
     modified: Number,
     date: Number,
-    accountDebited: [{ type: Types.ObjectId, ref: "Account" }],
-    accountCredited: [{ type: Types.ObjectId, ref: "Account" }],
+    accountDebited: [{ type: Schema.Types.ObjectId, ref: "Account" }],
+    accountCredited: [{ type: Schema.Types.ObjectId, ref: "Account" }],
     amount: Number
 });
 

@@ -12,11 +12,11 @@ export interface IBook extends Document {
 };
 
 const schema = new Schema({
-    _id: { type: Types.ObjectId, unique: true },
+    _id: Schema.Types.ObjectId,
     name: { type: String, required: true },
     balance: { type: Number, required: true },
-    accounts: { type: Types.ObjectId, ref: "Account" },
-    transactions: { type: Types.ObjectId, ref: "Transaction" }
+    accounts: { type: Schema.Types.ObjectId, ref: "Account" },
+    transactions: { type: Schema.Types.ObjectId, ref: "Transaction" }
 });
 
 export const Book = mongoose.model<IBook>("Book", schema);

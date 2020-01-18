@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 
 import { Book } from "../models/book";
 
-
-export async function create(req: Request, res: Response): Promise<void> {
+async function create(req: Request, res: Response): Promise<void> {
     //TODO: Validate
     const data = req.body;
 
@@ -25,7 +24,7 @@ export async function create(req: Request, res: Response): Promise<void> {
     }
 };
 
-export async function getAllBooks(req: Request, res: Response): Promise<void> {
+async function getAllBooks(req: Request, res: Response): Promise<void> {
     try {
         const books = await Book.find();
 
@@ -44,7 +43,7 @@ export async function getAllBooks(req: Request, res: Response): Promise<void> {
     }
 };
 
-export async function getBookById(req: Request, res: Response): Promise<void> {
+async function getBookById(req: Request, res: Response): Promise<void> {
     const id = req.body._id;
 
     try {
@@ -65,7 +64,7 @@ export async function getBookById(req: Request, res: Response): Promise<void> {
     }
 };
 
-export async function updateBook(req: Request, res: Response): Promise<void> {
+async function updateBook(req: Request, res: Response): Promise<void> {
     const book = req.body;
 
     try {
@@ -86,7 +85,7 @@ export async function updateBook(req: Request, res: Response): Promise<void> {
     }
 };
 
-export async function deleteBook(req: Request, res: Response): Promise<void> {
+async function deleteBook(req: Request, res: Response): Promise<void> {
     const id = req.body.id;
 
     try {
@@ -105,4 +104,12 @@ export async function deleteBook(req: Request, res: Response): Promise<void> {
             .json(error)
             .end();
     }
+};
+
+export {
+    create as createBook,
+    getAllBooks,
+    getBookById,
+    updateBook,
+    deleteBook
 };
