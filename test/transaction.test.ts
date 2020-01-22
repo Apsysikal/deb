@@ -1,9 +1,7 @@
-import * as chai from "chai";
+import { expect } from "chai";
 
 import { Account } from "../src/account";
 import { Transaction } from "../src/transaction";
-
-const expect = chai.expect;
 
 describe("Transaction", () => {
     let transaction: Transaction;

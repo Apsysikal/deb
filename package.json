@@ -8,7 +8,7 @@
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "test": "mocha",
-    "coverage": "nyc mocha",
+    "coverage": "nyc mocha -r",
     "start": "node -r dotenv/config ./dist/index.js",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix"
   },
@@ -31,6 +31,7 @@
     "@typescript-eslint/eslint-plugin": "^2.3.2",
     "@typescript-eslint/parser": "^2.3.2",
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "eslint": "^6.5.1",
     "mocha": "^6.2.1",
     "nyc": "^15.0.0",

@@ -14,7 +14,7 @@ export interface IBook extends Document {
 const schema = new Schema({
     _id: Schema.Types.ObjectId,
     name: { type: String, required: true },
-    balance: { type: Number, required: true },
+    balance: { type: Number, default: 0.0 },
     accounts: { type: Schema.Types.ObjectId, ref: "Account" },
     transactions: { type: Schema.Types.ObjectId, ref: "Transaction" }
 });

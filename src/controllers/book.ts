@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Types } from "mongoose";
 
 import { Book } from "../models/book";
 
@@ -6,8 +7,13 @@ async function create(req: Request, res: Response): Promise<void> {
     //TODO: Validate
     const data = req.body;
 
+    data["_id"] = new Types.ObjectId();
+
     try {
         const book = await Book.create(data);
+
+
+        console.log(book);
 
         res
             .status(201)
