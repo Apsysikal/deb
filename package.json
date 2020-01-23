@@ -9,7 +9,7 @@
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "test": "mocha",
-    "coverage": "nyc mocha -r",
+    "coverage": "nyc mocha",
     "start": "node -r dotenv/config ./dist/index.js",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix"
   },
