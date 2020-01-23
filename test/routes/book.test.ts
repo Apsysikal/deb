@@ -13,12 +13,13 @@ let db: Mongoose;
 
 const request = chai.request.agent(app);
 
-describe("Endpoint /book", () => {
+describe("Endpoint /book", async () => {
     before(async () => {
         db = await database.connect("testing");
     });
 
     after(async () => {
+        await db.connection.dropCollection("books");
         await db.disconnect();
     });
 
@@ -63,6 +64,49 @@ describe("Endpoint /book", () => {
                 expect(response.body._id).to.exist;
                 expect(response.body.name).to.deep.equal(requestBody.name);
                 expect(response.body.balance).to.deep.equal(0.0);
+            } catch (error) {
+                throw error;
+            }
+        });
+    });
+
+    describe("POST /book with an invalild body", async () => {
+        const requestBody = {};
+
+        it("Returns a 400 status code", async () => {
+            try {
+                const response = await request
+                    .post("/book")
+                    .set("Content-Type", "application/json")
+                    .send(requestBody);
+
+                expect(response).to.have.status(400);
+            } catch (error) {
+                throw error;
+            }
+        });
+
+        it("Returns an object in json format", async () => {
+            try {
+                const response = await request
+                    .post("/book")
+                    .set("Content-Type", "application/json")
+                    .send(requestBody);
+
+                expect(response).to.be.json;
+            } catch (error) {
+                throw error;
+            }
+        });
+
+        it("Returns an error object containing the error", async () => {
+            try {
+                const response = await request
+                    .post("/book")
+                    .set("Content-Type", "application/json")
+                    .send(requestBody);
+
+                expect(response).to.contain(/error?s/);
             } catch (error) {
                 throw error;
             }

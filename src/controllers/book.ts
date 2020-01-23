@@ -1,10 +1,29 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
+import { body, sanitizeBody, validationResult } from "express-validator";
 
 import { Book } from "../models/book";
 
 async function create(req: Request, res: Response): Promise<void> {
-    //TODO: Validate
+
+    await body("_id", "Property '_id' mustn't be set upon creation").not().exists().run(req);
+    await body("name", "Property 'name' must exist").exists().notEmpty({ ignore_whitespace: true }).run(req); // eslint-disable-line @typescript-eslint/camelcase
+    await body("balance", "Property 'balance' mustn't be set upon creation").not().exists().run(req);
+    await body("accounts", "Property 'accounts' mustn't be set upon creation").not().exists().run(req);
+    await body("transactions", "Property 'transactions' musn't be set upon creation").not().exists().run(req);
+
+    sanitizeBody("name").trim().toString();
+
+    const validationErros = validationResult(req);
+
+    if (!validationErros.isEmpty()) {
+        return res
+            .status(400)
+            .contentType("application/json")
+            .json(validationErros)
+            .end();
+    }
+
     const data = req.body;
 
     data["_id"] = new Types.ObjectId();
@@ -12,17 +31,14 @@ async function create(req: Request, res: Response): Promise<void> {
     try {
         const book = await Book.create(data);
 
-
-        console.log(book);
-
-        res
+        return res
             .status(201)
             .contentType("application/json")
             .json(book)
             .end();
 
     } catch (error) {
-        res
+        return res
             .status(500)
             .contentType("application/json")
             .json(error)

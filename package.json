@@ -4,6 +4,7 @@
   "description": "A double entry bookkeeping implementation in typescript.",
   "main": "index.js",
   "scripts": {
+    "dev": "npm run build && npm start",
     "build": "npm run build-ts && npm run lint",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
@@ -43,6 +44,7 @@
     "bacstack": "0.0.1-beta.13",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
+    "express-validator": "^6.3.1",
     "mongoose": "^5.8.7",
     "winston": "^3.2.1"
   }
