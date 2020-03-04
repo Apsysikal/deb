@@ -1,9 +1,9 @@
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
 import * as dotenv from "dotenv";
-import { Mongoose } from "mongoose";
 import { app } from "../../src/app";
 import * as database from "../../src/database";
+import { Mongoose } from "mongoose";
 
 dotenv.config({ path: "../../.env" });
 
@@ -18,8 +18,12 @@ describe("Endpoint /book", async () => {
         db = await database.connect("testing");
     });
 
+    beforeEach(async () => {
+        try { await db.connection.dropCollection("books"); } catch{ };
+    });
+
     after(async () => {
-        await db.connection.dropCollection("books");
+        try { await db.connection.dropCollection("books"); } catch{ };
         await db.disconnect();
     });
 
@@ -107,6 +111,52 @@ describe("Endpoint /book", async () => {
                     .send(requestBody);
 
                 expect(response).to.contain(/error?s/);
+            } catch (error) {
+                throw error;
+            }
+        });
+    });
+
+    describe("GET /book", async () => {
+        it("Returns a 200 status code", async () => {
+            try {
+                const response = await request
+                    .get("/book");
+
+                expect(response).to.have.status(200);
+            } catch (error) {
+                throw error;
+            }
+        });
+
+        it("Returns an object in JSON format", async () => {
+            try {
+                const response = await request
+                    .get("/book");
+
+                expect(response).to.be.json;
+            } catch (error) {
+                throw error;
+            }
+        });
+
+        it("Returns an object containing all books", async () => {
+            const requestBody = {
+                name: "My checking book"
+            };
+
+            try {
+                for (let i = 0; i < 3; i++) {
+                    await request
+                        .post("/book")
+                        .set("Content-Type", "application/json")
+                        .send(requestBody);
+                };
+
+                const response = await request
+                    .get("/book");
+
+                expect(response.body.length).to.be.greaterThan(2);
             } catch (error) {
                 throw error;
             }
