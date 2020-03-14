@@ -9,14 +9,14 @@ router.post("/", async (req: Request, res: Response) => {
     createBook(req, res);
 });
 
-// Returns all books
-router.get("/", async (req: Request, res: Response) => {
-    getAllBooks(req, res);
-});
-
 // Returns book by id
 router.get("/:id", async (req: Request, res: Response) => {
     getBookById(req, res);
+});
+
+// Returns all books
+router.get("/", async (req: Request, res: Response) => {
+    getAllBooks(req, res);
 });
 
 // Update  book

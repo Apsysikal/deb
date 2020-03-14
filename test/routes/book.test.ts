@@ -162,4 +162,120 @@ describe("Endpoint /book", async () => {
             }
         });
     });
+
+    describe("GET /book/:id", async () => {
+        it("Returns a 200 status code", async () => {
+            const requestBody = {
+                name: "My checking book"
+            };
+
+            try {
+                const book = await request
+                    .post("/book")
+                    .set("Content-Type", "application/json")
+                    .send(requestBody);
+
+                const response = await request
+                    .get("/book?id=" + book.body["_id"]);
+
+                expect(response).to.have.status(200);
+            } catch (error) {
+                throw error;
+            }
+        });
+
+        it("Returns an object in JSON format", async () => {
+            const requestBody = {
+                name: "My checking book"
+            };
+
+            try {
+                const book = await request
+                    .post("/book")
+                    .set("Content-Type", "application/json")
+                    .send(requestBody);
+
+                const response = await request
+                    .get("/book/" + book.body["_id"]);
+
+                expect(response).to.be.json;
+            } catch (error) {
+                throw error;
+            }
+        });
+
+        it("Returns an object containing the book", async () => {
+            const requestBody = {
+                name: "My checking book"
+            };
+
+            try {
+                const book = await request
+                    .post("/book")
+                    .set("Content-Type", "application/json")
+                    .send(requestBody);
+
+                const response = await request
+                    .get("/book/" + book.body["_id"]);
+
+                expect(response.body["_id"]).to.deep.equal(book.body["_id"]);
+                expect(response.body["name"]).to.deep.equal(book.body["name"]);
+            } catch (error) {
+                throw error;
+            }
+        });
+    });
+
+    describe("GET /book/:id with an invalid id", async () => {
+        it("Returns a 400 status code", async () => {
+            const requestBody = {
+                name: "My checking book"
+            };
+
+            try {
+                const response = await request
+                    .get("/book/" + "INVALID ID")
+                    .set("Content-Type", "application/json")
+                    .send(requestBody);
+
+                expect(response).to.have.status(400);
+            } catch (error) {
+                throw error;
+            }
+        });
+
+        it("Returns an object in json format", async () => {
+            const requestBody = {
+                name: "My checking book"
+            };
+
+            try {
+                const response = await request
+                    .get("/book/" + "INVALID ID")
+                    .set("Content-Type", "application/json")
+                    .send(requestBody);
+
+                expect(response).to.be.json;
+            } catch (error) {
+                throw error;
+            }
+        });
+
+        it("Returns an error object containing the error", async () => {
+            const requestBody = {
+                name: "My checking book"
+            };
+
+            try {
+                const response = await request
+                    .get("/book/" + "INVALID ID")
+                    .set("Content-Type", "application/json")
+                    .send(requestBody);
+
+                expect(response).to.contain(/error?s/);
+            } catch (error) {
+                throw error;
+            }
+        });
+    });
 });

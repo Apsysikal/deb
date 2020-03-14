@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
-import { body, sanitizeBody, validationResult } from "express-validator";
+import { body, sanitizeBody, validationResult, param } from "express-validator";
 
 import { Book } from "../models/book";
 
@@ -66,7 +66,28 @@ async function getAllBooks(req: Request, res: Response): Promise<void> {
 };
 
 async function getBookById(req: Request, res: Response): Promise<void> {
-    const id = req.body._id;
+    await param("id", "Parameter 'id' must exist ").exists().run(req);
+
+    // This should probably be in sanitization
+    await param("id").custom(value => {
+        try {
+            return Types.ObjectId(value);
+        } catch (error) {
+            throw "Parameter 'id' must be a valid id";
+        }
+    }).run(req);
+
+    const validationErros = validationResult(req);
+
+    if (!validationErros.isEmpty()) {
+        return res
+            .status(400)
+            .contentType("application/json")
+            .json(validationErros)
+            .end();
+    }
+
+    const id = req.params.id;
 
     try {
         const book = await Book.findById(id);
